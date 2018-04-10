@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * Created by Kiven on 16/12/2.
+ * Created by Moon on 16/12/2.
  */
 public class CustomViewPager extends ViewPager {
 	private boolean isCanScroll = false;

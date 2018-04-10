@@ -4,20 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.flyco.tablayout.CommonTabLayout
-        android:id="@+id/tab_layout"
+    <RelativeLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_alignParentBottom="true"
-        android:background="#E6ffffff"
-        tl:tl_iconHeight="23dp"
-        tl:tl_iconWidth="23dp"
-        tl:tl_indicator_color="#F297DE"
-        tl:tl_indicator_height="0dp"
-        tl:tl_textSelectColor="#FE4F3E"
-        tl:tl_textUnselectColor="#4D4D4D"
-        tl:tl_textsize="13sp"
-        tl:tl_underline_color="#DDDDDD"
-        tl:tl_underline_height="1dp" />
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <com.hb.zll.dijiag.view.CustomViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <View
+            android:id="@+id/mian_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/web_bg"
+            android:layout_above="@+id/tab_layout" />
+
+        <com.flyco.tablayout.CommonTabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/b_white"
+            tl:tl_iconHeight="23dp"
+            tl:tl_iconWidth="23dp"
+            tl:tl_indicator_color="#F297DE"
+            tl:tl_indicator_height="0dp"
+            tl:tl_textSelectColor="#FE4F3E"
+            tl:tl_textUnselectColor="#4D4D4D"
+            tl:tl_textsize="13sp"
+            tl:tl_underline_color="#DDDDDD"
+            tl:tl_underline_height="1dp" />
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

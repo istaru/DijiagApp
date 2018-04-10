@@ -1,8 +1,20 @@
 package com.hb.zll.dijiag.activity;
 
-/**
- * Created by Moon on 2018/4/10.
- */
+import android.os.Bundle;
 
-public class MainActivity {
+import com.hb.zll.dijiag.R;
+
+public class MainActivity extends BaseActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setSwipeBackEnable(false);
+    }
+
+    @Override
+    public void initView() {
+
+    }
 }
