@@ -62,8 +62,9 @@
                 android:padding="@dimen/dp_8"
                 android:scaleType="fitXY"
                 android:src="@mipmap/ico_cart" />
-
         </LinearLayout>
+
+
 
     </RelativeLayout>
 

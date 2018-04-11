@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alibaba.baichuan.android.trade.AlibcTradeSDK;
+import com.alibaba.baichuan.android.trade.callback.AlibcTradeInitCallback;
 import com.hb.zll.dijiag.tools.PrefShared;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         context = this;
-//        initAlib();
+        initAlib();
 //        initUMConfig();
 //        initX5();
 //        getStatusBarHeight();
@@ -106,70 +108,25 @@ public class Application extends android.app.Application {
 //        });
 //    }
 //
-//    /**
-//     * 初始化阿里相关组件
-//     */
-//    private void initAlib() {
-//        initHotfix();
-//        initBC();
-//    }
-//
-//    /**
-//     * 初始化百川
-//     */
-//    private void initBC() {
-//        AlibcTradeSDK.asyncInit(this, new AlibcTradeInitCallback() {
-//            @Override
-//            public void onSuccess() {
-//                //初始化成功，设置相关的全局配置参数
-////                Log.e("初始化百川", "成功");
-//            }
-//
-//            @Override
-//            public void onFailure(int code, String msg) {
-//                //初始化失败，可以根据code和msg判断失败原因，详情参见错误说明
-////                Log.e("初始化百川", "失败");
-//            }
-//        });
-//    }
-//
-//    /**
-//     * 初始化initHotfix
-//     */
-//    private void initHotfix() {
-//        String versionName = "";
-//        try {
-//            versionName = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-//        } catch (Exception e) {
-//            versionName = "2.0.0";
-//        }
-//        SophixManager.getInstance().setContext(this)
-//                .setAppVersion(versionName)//应用的版本号
-//                .setAesKey(null)
-//                .setEnableDebug(true)//是否调试模式
-//                .setPatchLoadStatusStub(new PatchLoadStatusListener() {
-//                    @Override
-//                    public void onLoad(final int mode, final int code, final String info, final int handlePatchVersion) {
-//                        // 补丁加载回调通知
-//                        if (code == PatchStatus.CODE_LOAD_SUCCESS) {
-//                            // 表明补丁加载成功
-//                            Log.e("补丁加载","成功");
-//                        } else if (code == PatchStatus.CODE_LOAD_RELAUNCH) {
-//                            // 表明新补丁生效需要重启. 开发者可提示用户或者强制重启;
-//                            // 建议: 用户可以监听进入后台事件, 然后应用自杀
-//                            Log.e("补丁加载","生效需要重启");
-//                        } else if (code == PatchStatus.CODE_LOAD_FAIL) {
-//                            // 内部引擎异常, 推荐此时清空本地补丁, 防止失败补丁重复加载
-//                            Log.e("补丁加载","内部引擎异常");
-//                            SophixManager.getInstance().cleanPatches();
-//                        } else {
-//                            // 其它错误信息, 查看PatchStatus类说明
-//                            Log.e("补丁加载","其它错误信息"+code+"，"+info);
-//                        }
-//                    }
-//                }).initialize();
-//    }
-//
+    /**
+     * 初始化百川
+     */
+    private void initAlib() {
+        AlibcTradeSDK.asyncInit(this, new AlibcTradeInitCallback() {
+            @Override
+            public void onSuccess() {
+                //初始化成功，设置相关的全局配置参数
+                Log.e("初始化百川", "成功");
+            }
+
+            @Override
+            public void onFailure(int code, String msg) {
+                //初始化失败，可以根据code和msg判断失败原因，详情参见错误说明
+                Log.e("初始化百川", "失败" + code + "------" + msg);
+            }
+        });
+    }
+
 //    /**
 //     * 初始化腾讯X5内核WebView
 //     */
