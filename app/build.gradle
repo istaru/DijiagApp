@@ -32,7 +32,8 @@ dependencies {
     //loading效果
     compile 'com.kaopiz:kprogresshud:1.0.5'
     //flycoTabLayout
-    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    compile project(':FlycoTabLayout_Lib')
+//    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     //滑动退出activity
     compile 'me.imid.swipebacklayout.lib:library:1.1.0'
 }

@@ -19,25 +19,25 @@
         <View
             android:id="@+id/mian_line"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="@dimen/dp_1"
             android:background="@color/web_bg"
             android:layout_above="@+id/tab_layout" />
 
         <com.flyco.tablayout.CommonTabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="@dimen/dp_54"
             android:layout_alignParentBottom="true"
             android:background="@color/b_white"
-            tl:tl_iconHeight="23dp"
-            tl:tl_iconWidth="23dp"
+            tl:tl_iconHeight="@dimen/dp_23"
+            tl:tl_iconWidth="@dimen/dp_23"
             tl:tl_indicator_color="#F297DE"
             tl:tl_indicator_height="0dp"
             tl:tl_textSelectColor="#FE4F3E"
             tl:tl_textUnselectColor="#4D4D4D"
-            tl:tl_textsize="13sp"
+            tl:tl_textsize="@dimen/sp_13"
             tl:tl_underline_color="#DDDDDD"
-            tl:tl_underline_height="1dp" />
+            tl:tl_underline_height="@dimen/dp_1" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
