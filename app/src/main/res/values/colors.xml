@@ -8,6 +8,7 @@
     <color name="b_white">#E6FFFFFF</color>
     <color name="black">#000000</color>
     <color name="bTransparent">#60000000</color>
+    <color name="transparent">#00000000</color>
     <color name="gray">#4D4D4D</color>
     <color name="btn_unselect">#FE4F3E</color>
     <color name="app_color">#FB3636</color>
