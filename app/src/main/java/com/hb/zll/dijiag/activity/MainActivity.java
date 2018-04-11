@@ -46,6 +46,9 @@ public class MainActivity extends BaseActivity {
         initBtn();
     }
 
+    /**
+     * 初始化Fragment
+     */
     private void initFragments() {
         fragments = new ArrayList<>();
         fragments.add(Fragment1.newInstance());
@@ -76,6 +79,9 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    /**
+     * 初始化底部按钮
+     */
     private void initBtn() {
         mTabEntities = new ArrayList<>();
         mTabEntities.add(new TabEntity("首页",R.mipmap.btn_home_on,R.mipmap.btn_home));
@@ -86,6 +92,9 @@ public class MainActivity extends BaseActivity {
         tabLayout.setOnTabSelectListener(tabSelectedListener);
     }
 
+    /**
+     * 底部按钮单击事件
+     */
     OnTabSelectListener tabSelectedListener = new OnTabSelectListener() {
         @Override
         public void onTabSelect(int position) {
