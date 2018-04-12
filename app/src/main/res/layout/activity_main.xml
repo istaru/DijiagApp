@@ -1,44 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.hb.zll.dijiag.view.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <View
-        android:id="@+id/mian_line"
+    <include
+        layout="@layout/view_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:layout_above="@+id/tab_layout"
-        android:background="@color/web_bg" />
+        app:layout_constraintBottom_toTopOf="@+id/tab_layout" />
 
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_54"
-        android:layout_alignParentBottom="true"
         android:background="@color/b_white"
-        tl:tl_iconHeight="@dimen/dp_23"
-        tl:tl_iconWidth="@dimen/dp_23"
-        tl:tl_indicator_color="#F297DE"
-        tl:tl_indicator_height="0dp"
-        tl:tl_textSelectColor="#FE4F3E"
-        tl:tl_textUnselectColor="#4D4D4D"
-        tl:tl_textsize="@dimen/sp_13"
-        tl:tl_underline_color="#DDDDDD"
-        tl:tl_underline_height="@dimen/dp_1" />
-
-</RelativeLayout>
+        app:layout_constraintBottom_toBottomOf="@+id/view_pager"
+        app:tl_iconHeight="@dimen/dp_23"
+        app:tl_iconWidth="@dimen/dp_23"
+        app:tl_indicator_color="#F297DE"
+        app:tl_indicator_height="0dp"
+        app:tl_textSelectColor="#FE4F3E"
+        app:tl_textUnselectColor="#4D4D4D"
+        app:tl_textsize="@dimen/sp_13"
+        app:tl_underline_color="#DDDDDD"
+        app:tl_underline_height="@dimen/dp_1" />
 
 </android.support.constraint.ConstraintLayout>

@@ -14,6 +14,7 @@ import com.hb.zll.dijiag.adapter.MainActivityAdapter;
 import com.hb.zll.dijiag.application.Application;
 import com.hb.zll.dijiag.entity.TabEntity;
 import com.hb.zll.dijiag.fragment.Fragment1;
+import com.hb.zll.dijiag.fragment.Fragment4;
 import com.hb.zll.dijiag.view.CustomViewPager;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActivity {
         fragments.add(Fragment1.newInstance());
         fragments.add(Fragment1.newInstance());
         fragments.add(Fragment1.newInstance());
-        fragments.add(Fragment1.newInstance());
+        fragments.add(Fragment4.newInstance());
         viewPager.addOnPageChangeListener(pageChangeListener);
         pagerAdapter = new MainActivityAdapter(getSupportFragmentManager(),fragments);
         viewPager.setAdapter(pagerAdapter);
