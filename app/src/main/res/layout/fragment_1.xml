@@ -63,9 +63,7 @@
                 android:scaleType="fitXY"
                 android:src="@mipmap/ico_cart" />
         </LinearLayout>
-
-
-
     </RelativeLayout>
 
+    <include layout="@layout/view_tab_pager" />
 </LinearLayout>

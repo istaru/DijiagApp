@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.hb.zll.dijiag.view.CustomViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <include
+        layout="@layout/view_pager" />
 
     <include
         layout="@layout/view_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        app:layout_constraintBottom_toTopOf="@+id/tab_layout" />
+        android:layout_above="@+id/com_tab" />
 
     <com.flyco.tablayout.CommonTabLayout
-        android:id="@+id/tab_layout"
+        android:id="@+id/com_tab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_54"
+        android:layout_alignParentBottom="true"
         android:background="@color/b_white"
-        app:layout_constraintBottom_toBottomOf="@+id/view_pager"
         app:tl_iconHeight="@dimen/dp_23"
         app:tl_iconWidth="@dimen/dp_23"
         app:tl_indicator_color="#F297DE"
@@ -32,4 +30,4 @@
         app:tl_underline_color="#DDDDDD"
         app:tl_underline_height="@dimen/dp_1" />
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

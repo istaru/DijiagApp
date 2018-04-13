@@ -11,10 +11,10 @@ import com.hb.zll.dijiag.R;
  * Created by Moon on 2018/4/11.
  */
 
-public class Fragment4 extends BaseFragment{
+public class MeFragment extends BaseFragment{
 
-    public static Fragment4 newInstance() {
-        Fragment4 fragment = new Fragment4();
+    public static MeFragment newInstance() {
+        MeFragment fragment = new MeFragment();
         return fragment;
     }
 
