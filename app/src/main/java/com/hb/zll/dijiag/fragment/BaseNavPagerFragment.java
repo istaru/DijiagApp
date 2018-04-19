@@ -25,11 +25,9 @@ public abstract class BaseNavPagerFragment extends BaseFragment {
     private CustomViewPager viewPager;
     private SlidingTabLayout tabLayout;
     private Adapter mAdapter;
-    private String[] titles;
+    private List<String> titles;
 
-    protected abstract String[] getTitles();
-
-    protected abstract String[] getCId();
+    protected abstract List<String> getTitles();
 
     protected abstract Fragment getFragment(int position);
 
@@ -39,8 +37,8 @@ public abstract class BaseNavPagerFragment extends BaseFragment {
         mAdapter = new Adapter(getChildFragmentManager());
         titles = getTitles();
         if(null != titles){
-            for (int i = 0; i < titles.length; i++) {
-                mAdapter.addFragment(getFragment(i), titles[i]);
+            for (int i = 0; i < titles.size(); i++) {
+                mAdapter.addFragment(getFragment(i), titles.get(i));
             }
         }
     }
@@ -59,7 +57,7 @@ public abstract class BaseNavPagerFragment extends BaseFragment {
         viewPager = (CustomViewPager) view.findViewById(R.id.view_pager);
         viewPager.setScanScroll(true);
         if(null != titles){
-            viewPager.setOffscreenPageLimit(titles.length);
+            viewPager.setOffscreenPageLimit(titles.size());
         }
         viewPager.setAdapter(mAdapter);
         tabLayout.setViewPager(viewPager);

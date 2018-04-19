@@ -52,12 +52,12 @@ public class MainActivity extends BaseActivity {
      */
     private void initFragments() {
         fragments = new ArrayList<>();
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(HomeFragment.newInstance());
+        fragments.add(HomeFragment.newInstance(0));
+        fragments.add(HomeFragment.newInstance(1));
+        fragments.add(MeFragment.newInstance());
         fragments.add(MeFragment.newInstance());
         viewPager.addOnPageChangeListener(pageChangeListener);
-        pagerAdapter = new MainActivityAdapter(getSupportFragmentManager(),fragments);
+        pagerAdapter = new MainActivityAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
     }
 
@@ -85,10 +85,10 @@ public class MainActivity extends BaseActivity {
      */
     private void initBtn() {
         mTabEntities = new ArrayList<>();
-        mTabEntities.add(new TabEntity("首页",R.mipmap.btn_home_on,R.mipmap.btn_home));
-        mTabEntities.add(new TabEntity("9块9",R.mipmap.btn_9_on,R.mipmap.btn_9));
-        mTabEntities.add(new TabEntity("邀请赚",R.mipmap.btn_share_on,R.mipmap.btn_share));
-        mTabEntities.add(new TabEntity("我的",R.mipmap.btn_me_on,R.mipmap.btn_me));
+        mTabEntities.add(new TabEntity("首页", R.mipmap.btn_home_on, R.mipmap.btn_home));
+        mTabEntities.add(new TabEntity("9块9", R.mipmap.btn_9_on, R.mipmap.btn_9));
+        mTabEntities.add(new TabEntity("邀请赚", R.mipmap.btn_share_on, R.mipmap.btn_share));
+        mTabEntities.add(new TabEntity("我的", R.mipmap.btn_me_on, R.mipmap.btn_me));
         tabLayout.setTabData(mTabEntities);
         tabLayout.setOnTabSelectListener(tabSelectedListener);
     }
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
     OnTabSelectListener tabSelectedListener = new OnTabSelectListener() {
         @Override
         public void onTabSelect(int position) {
-            viewPager.setCurrentItem(position,false);
+            viewPager.setCurrentItem(position, false);
         }
 
         @Override
@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    private void exit(){
+    private void exit() {
         if ((System.currentTimeMillis() - mExitTime) > 2000) {
             Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
             mExitTime = System.currentTimeMillis();

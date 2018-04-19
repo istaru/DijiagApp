@@ -18,7 +18,6 @@
         app:tl_indicator_height="@dimen/dp_2"
         app:tl_indicator_width_equal_title="true"
         app:tl_tab_padding="@dimen/dp_21"
-        app:tl_tab_space_equal="true"
         app:tl_textSelectColor="@color/app_color"
         app:tl_textUnselectColor="@color/black" />
 

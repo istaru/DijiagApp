@@ -185,6 +185,13 @@ public class Application extends android.app.Application {
         return instance;
     }
 
+    public static Context getContext(){
+        if(null == context){
+            throw new ExceptionInInitializerError("Application中的Context为空！");
+        }
+        return context;
+    }
+
     /**
      * 添加Activity到容其中
      *

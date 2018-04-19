@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hb.zll.dijiag.view.refresh.footer.GoogleCircleHookLoadMoreFooterView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_72"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <com.hb.zll.dijiag.view.refresh.GoogleCircleProgressView
+        android:id="@+id/googleProgress"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_gravity="center"
+        app:gcp_arrow_height="6dp"
+        app:gcp_arrow_width="8dp"
+        app:gcp_progress_stoke_width="2dp"
+        app:gcp_show_arrow="true" />
+</com.hb.zll.dijiag.view.refresh.footer.GoogleCircleHookLoadMoreFooterView>
