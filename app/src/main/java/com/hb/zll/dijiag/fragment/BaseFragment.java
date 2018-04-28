@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
+import com.hb.zll.dijiag.view.LoadingView;
 
 /**
  * Created by Moon on 2018/4/11.
@@ -21,10 +22,12 @@ public class BaseFragment extends Fragment {
     public int lifeCycle = 1;
     public SwipeToLoadLayout swipeToLoadLayout;
     public RecyclerView recyclerView;
+    public LoadingView dialog;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         this.context = getActivity();
+        dialog = new LoadingView(context);
     }
 }

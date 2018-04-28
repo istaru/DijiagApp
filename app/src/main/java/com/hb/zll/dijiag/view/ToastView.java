@@ -1,6 +1,7 @@
 package com.hb.zll.dijiag.view;
 
 import android.content.Context;
+import android.os.Handler;
 import android.widget.ImageView;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
@@ -27,14 +28,14 @@ public class ToastView {
     }
 
     public void dismissToast() {
-        try {
-            sleep(1000);
-            if (toast.isShowing()) {
-                toast.dismiss();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(toast.isShowing()){
+                    toast.dismiss();
+                }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        }, 1000);
     }
 
 }

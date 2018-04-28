@@ -24,6 +24,7 @@ public class HomeFragment extends BaseNavPagerFragment {
      */
     private int type;
     String json = "{\"cIds\":[\"0\",\"113\",\"134\",\"145\",\"154\",\"161\",\"166\",\"172\",\"178\",\"198\",\"203\",\"210\",\"240\"],\"titles\":[\"首页\",\"女装\",\"鞋包\",\"美妆个护\",\"内衣\",\"衣饰配件\",\"母婴亲子\",\"家电\",\"数码\",\"运动\",\"游戏动漫\",\"美食\",\"男装\"]}";
+//    String json = "{\"cIds\":[\"0\"],\"titles\":[\"首页\"]}";
 
     public static HomeFragment newInstance(int i) {
         HomeFragment fragment = new HomeFragment();

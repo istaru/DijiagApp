@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
     private void initFragments() {
         fragments = new ArrayList<>();
         fragments.add(HomeFragment.newInstance(0));
-        fragments.add(HomeFragment.newInstance(1));
+        fragments.add(MeFragment.newInstance());
         fragments.add(MeFragment.newInstance());
         fragments.add(MeFragment.newInstance());
         viewPager.addOnPageChangeListener(pageChangeListener);

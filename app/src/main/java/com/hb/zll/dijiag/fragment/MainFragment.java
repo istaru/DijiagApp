@@ -6,15 +6,21 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
 import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.hb.zll.dijiag.R;
-import com.hb.zll.dijiag.adapter.BaseAdapter;
+import com.hb.zll.dijiag.adapter.BaseAdapter.OnLongClickListener;
+import com.hb.zll.dijiag.adapter.BaseAdapter.OnClickListener;
 import com.hb.zll.dijiag.adapter.MainFragmentAdapter;
 import com.hb.zll.dijiag.entity.BaseEntity;
 import com.hb.zll.dijiag.entity.GoodsEntity;
@@ -22,6 +28,7 @@ import com.hb.zll.dijiag.request.ApiService;
 import com.hb.zll.dijiag.request.ApiSubscriber;
 import com.hb.zll.dijiag.request.HttpClient;
 import com.hb.zll.dijiag.request.Transformer;
+import com.hb.zll.dijiag.tools.URLConfig;
 import com.hb.zll.dijiag.view.DividerItemDecoration;
 
 import java.util.HashMap;
@@ -32,7 +39,7 @@ import java.util.Map;
  * Created by Moon on 2018/4/11.
  */
 
-public class MainFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener, BaseAdapter.OnClickListener {
+public class MainFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener, OnClickListener,OnLongClickListener {
     private int type;
     private String cId;
     private MainFragmentAdapter adapter;
@@ -80,9 +87,9 @@ public class MainFragment extends BaseFragment implements OnRefreshListener, OnL
                 }
             });
         } else {
-            recyclerView.addItemDecoration(
-                    new DividerItemDecoration(context, DividerItemDecoration.BOTH_SET, 6, ContextCompat.getColor(context, R.color.web_bg))
-            );
+//            recyclerView.addItemDecoration(
+//                    new DividerItemDecoration(context, DividerItemDecoration.BOTH_SET, 6, ContextCompat.getColor(context, R.color.web_bg))
+//            );
         }
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -111,24 +118,35 @@ public class MainFragment extends BaseFragment implements OnRefreshListener, OnL
         map.put("page_no", pageIndex + "");//第几页
         map.put("page_size", pageNum + "");//每个分类条数
         map.put("system", "1");//0iOS 1android
-        map.put("user_id", userId);//用户uid
+        map.put("user_id", "R78FbdkvYw");//用户uid
         HttpClient.getInstance()
+                .baseUrl(URLConfig.BASE_URL)
                 .createService(ApiService.class)
-                .getData(map)
-                .compose(Transformer.<BaseEntity<GoodsEntity>>call())
-                .subscribe(new ApiSubscriber<BaseEntity<GoodsEntity>>(context) {
+                .getGoods(map)
+                .compose(Transformer.<GoodsEntity>call())
+                .subscribe(new ApiSubscriber<GoodsEntity>(swipeToLoadLayout) {
                     @Override
-                    public void onNext(BaseEntity<GoodsEntity> goodsEntityBaseEntity) {
-                        super.onNext(goodsEntityBaseEntity);
+                    protected void onSuccess(GoodsEntity goods) {
+                        String json = JSON.toJSONString(goods);
+                        Log.e("数据", json);
+                        adapter.addRecyclerData(goods,pageIndex);
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
+                    protected void onError(String message) {
+                        adapter.addErroMsg(message);
                     }
                 });
-
     }
+
+//    private void download(){
+//        HttpClient.getInstance()
+//                .baseUrl("https://t.alipayobjects.com")
+//                .createService(ApiService.class)
+//                .downloadFile("/L1/71/100/and/alipay_wap_main.apk")
+//                .compose(Transformer.<ResponseBody>call())
+//                .subscribe(new)
+//    }
 
     @Override
     public void onLoadMore() {
@@ -141,12 +159,23 @@ public class MainFragment extends BaseFragment implements OnRefreshListener, OnL
     }
 
     @Override
-    public void onClick(View view, int position, List<Map<String, Object>> listMap) {
-
+    public void onItemClick(View view, int position, List t) {
+        Toast.makeText(context,"单击第" + (position + 1),Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onClick(View view) {
+    public void onItemClick(View view) {
+        switch (view.getId()){
+            case R.id.no_data:
+                if(!swipeToLoadLayout.isRefreshing()){
+                    swipeToLoadLayout.setRefreshing(true);
+                }
+                break;
+        }
+    }
 
+    @Override
+    public void onItemLongClick(View view, int position, List t) {
+        Toast.makeText(context,"长按第" + (position + 1),Toast.LENGTH_SHORT).show();
     }
 }

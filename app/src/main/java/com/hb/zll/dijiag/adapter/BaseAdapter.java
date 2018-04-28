@@ -4,6 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.alibaba.fastjson.JSONObject;
+import com.hb.zll.dijiag.R;
+import com.hb.zll.dijiag.entity.BaseEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -12,33 +18,36 @@ import java.util.Map;
  * Created by superMoon on 2017/8/17.
  */
 
-public abstract class BaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class BaseAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public OnClickListener onClickListener;
-    /**
-     * 显示banner的标识
-     */
+    public OnLongClickListener onLongClickListener;
+    /** true为创建Adapter时，false为addRecyclerData时*（当getItemCount返回值为0时RecyclerView.Adapter不执行onCreateViewHolder方法导致不能根据getItemViewType方法去填充空数据的View）*/
+    public boolean flag = true;
+    public String errorMsg = "";
+    /** 填充banner布局的标识 */
     public final int TYPE_0 = 0;
-    /**
-     * 显示item的标识
-     */
+    /** 填充recyclerView中item布局的标识 */
     public final int TYPE_1 = 1;
-    /**
-     * 显示空数据的标识
-     */
+    /** 填充其他布局的标识 */
     public final int TYPE_2 = 2;
-    public boolean flag = false;
-
+    /** 填充暂无数据布局的标识 */
+    public final int TYPE_E = 100;
     /**
      * 通过异步请求将列表的数据填充到Adapter
-     * flag 是否有数据的标识
-     *
-     * @param datas
+     * @param object 数据
+     * @param pageindex 1刷新，2加载
      */
-    public abstract void addRecyclerData(List<Map<String, Object>> datas, int pageIndex, boolean flag);
+    public abstract void addRecyclerData(Object object, int pageindex);
+
+    /**
+     * 当网络请求不通的时候，把返回的错误信息填充到空View中去
+     * @param message
+     */
+    public abstract void addErroMsg(String message);
 
     @Override
     public int getItemCount() {
-        return 0;
+        return TYPE_E;
     }
 
     /**
@@ -75,12 +84,27 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<RecyclerView.View
         return null;
     }
 
-    public class EmptyHolder extends RecyclerView.ViewHolder {
+    public class EmptyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        LinearLayout noData;
+        public TextView errorText;
+
         /**
          * 设置空布局
          */
         public EmptyHolder(View itemView) {
             super(itemView);
+            errorText = (TextView) itemView.findViewById(R.id.error_text);
+            noData = (LinearLayout) itemView.findViewById(R.id.no_data);
+            noData.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()){
+                case R.id.no_data:
+                    onClickListener.onItemClick(view);
+                    break;
+            }
         }
     }
 
@@ -104,13 +128,16 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     }
 
+    public void onBindEmptyHolder(EmptyHolder viewHolder, String errorMsg) {
+        viewHolder.errorText.setText(errorMsg);
+    }
+
     /**
-     * 定义所有单击事件接口
+     * 定义单击事件接口
      */
     public interface OnClickListener {
-        void onClick(View view, int position, List<Map<String, Object>> listMap);
-
-        void onClick(View view);
+        void onItemClick(View view, int position, List t);
+        void onItemClick(View view);
     }
 
     /**
@@ -118,5 +145,19 @@ public abstract class BaseAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     public void setOnClickListener(final OnClickListener onClickListener) {
         this.onClickListener = onClickListener;
+    }
+
+    /**
+     * 定义长按单击事件接口
+     */
+    public interface OnLongClickListener {
+        void onItemLongClick(View view, int position, List t);
+    }
+
+    /**
+     * 所有长按事件的处理方法
+     */
+    public void setOnLongClickListener(final OnLongClickListener OnLongClickListener) {
+        this.onLongClickListener = OnLongClickListener;
     }
 }

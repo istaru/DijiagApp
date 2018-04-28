@@ -7,7 +7,7 @@ package com.hb.zll.dijiag.entity;
 public class BaseEntity<T> {
     private int code;
     private String msg;
-    private T data;
+    private T t;
 
     public int getCode() {
         return code;
@@ -25,11 +25,11 @@ public class BaseEntity<T> {
         this.msg = msg;
     }
 
-    public T getData() {
-        return data;
+    public T getT() {
+        return t;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setT(T t) {
+        this.t = t;
     }
 }

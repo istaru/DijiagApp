@@ -1,9 +1,11 @@
 package com.hb.zll.dijiag.request;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-import com.google.gson.JsonSyntaxException;
+import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 import com.hb.zll.dijiag.view.LoadingView;
 import com.hb.zll.dijiag.view.ToastView;
 
@@ -14,6 +16,7 @@ import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import retrofit2.HttpException;
 
 
 /**
@@ -21,10 +24,24 @@ import io.reactivex.disposables.Disposable;
  */
 
 public abstract class ApiSubscriber<T> implements Observer<T> {
-    LoadingView dialog;
-    ToastView toast;
+    private Activity context;
+    private LoadingView dialog;
+    private ToastView toast;
+    private SwipeToLoadLayout swipe;
 
-    public ApiSubscriber(@NonNull Context context) {
+    public ApiSubscriber(@NonNull Activity context){
+        this.context = context;
+        dialog = new LoadingView(context);
+        toast = new ToastView(context);
+    }
+
+    public ApiSubscriber(SwipeToLoadLayout swipe){
+        this.swipe = swipe;
+    }
+
+    public ApiSubscriber(@NonNull Activity context, SwipeToLoadLayout swipe) {
+        this.context = context;
+        this.swipe = swipe;
         dialog = new LoadingView(context);
         toast = new ToastView(context);
     }
@@ -38,25 +55,43 @@ public abstract class ApiSubscriber<T> implements Observer<T> {
 
     @Override
     public void onNext(T t) {
-
+        onSuccess(t);
     }
 
     @Override
     public void onError(Throwable e) {
+//        HttpException httpException = (HttpException) e;
+//        switch (httpException.code()){}
+//        Log.e("TAG_Error",httpException.code()+"");
         if (null != dialog && dialog.isShowing()) {
             dialog.dismiss();
         }
-        if (e instanceof ApiException) {
-            toast.showToast("服务器返回的错误");
-        } else if (e instanceof ConnectException || e instanceof UnknownHostException) {
-            toast.showToast("网络异常，请检查网络");
-        } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException) {
-            toast.showToast("网络不畅，请稍后再试！");
-        } else if (e instanceof JsonSyntaxException) {
-            toast.showToast("数据解析异常");
-        } else {
-            toast.showToast("服务端错误");
+        if(null != swipe){
+            if(swipe.isRefreshing()){
+                swipe.setRefreshing(false);
+            }
+            if(swipe.isLoadingMore()){
+                swipe.setLoadingMore(false);
+            }
         }
+        if(null != toast){
+//            if (e instanceof ApiException) {
+//                toast.showToast("服务器返回的具体错误");
+//                Log.e("TAG_Error","服务器返回的具体错误");
+//            } else if (e instanceof ConnectException || e instanceof UnknownHostException) {
+//                toast.showToast("网络异常，请检查网络");
+//                Log.e("TAG_Error","网络异常，请检查网络");
+//            } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException) {
+//                toast.showToast("网络不畅，请稍后再试！");
+//                Log.e("TAG_Error","网络不畅，请稍后再试！");
+////        } else if (e instanceof JsonSyntaxException) {
+////            toast.showToast("数据解析异常");
+//            } else {
+//                toast.showToast("服务端错误");
+//                Log.e("TAG_Error","服务端错误");
+//            }
+        }
+        onError(e.getMessage());
     }
 
     @Override
@@ -64,5 +99,17 @@ public abstract class ApiSubscriber<T> implements Observer<T> {
         if (null != dialog && dialog.isShowing()) {
             dialog.dismiss();
         }
+        if(null != swipe){
+            if(swipe.isRefreshing()){
+                swipe.setRefreshing(false);
+            }
+            if(swipe.isLoadingMore()){
+                swipe.setLoadingMore(false);
+            }
+        }
     }
+
+    protected abstract void onSuccess(T t);
+
+    protected abstract void onError(String message);
 }
